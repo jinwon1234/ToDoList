@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Styled Login/Join Page</title>
+  <style>
+    /* 전체 배경 및 폰트 설정 */
+    body {
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    /* 컨테이너 스타일 */
+    .container {
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    /* 폼 간격 */
+    form {
+      margin: 20px 0;
+    }
+    /* 버튼 스타일 */
+    input[type="submit"] {
+      background-color: #3498db;
+      border: none;
+      padding: 15px 30px;
+      font-size: 16px;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    /* 버튼 호버 효과 */
+    input[type="submit"]:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>환영합니다!</h1>
+  <form action="/login">
+    <input type="submit" value="로그인">
+  </form>
+  <form action="/join">
+    <input type="submit" value="회원가입">
+  </form>
+</div>
+</body>
+</html>

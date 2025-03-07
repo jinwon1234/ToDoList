@@ -1,0 +1,75 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDo 글쓰기</title>
+    <style>
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input, textarea {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            width: 92%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .cancel-button {
+            background-color: gray;
+        }
+        .cancel-button:hover {
+            background-color: darkgray;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>ToDo 작성</h2>
+    <form th:action="@{/todo/{id}/updateform(id=${todoForm.id})}" th:object="${todoForm}" method="post">
+
+        <p th:errors="*{title}" style="color: red;"></p>
+        <p th:errors="*{content}" style="color: red;"></p>
+
+        <input type="text" th:field="*{title}" placeholder="제목을 입력하세요">
+        <textarea th:field="*{content}" placeholder="내용을 입력하세요" rows="5"></textarea>
+
+
+        <button type="submit">등록</button>
+        <a href="/">
+            <button type="button" class="cancel-button">취소</button>
+        </a>
+    </form>
+</div>
+
+</body>
+</html>

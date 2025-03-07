@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>로그인 페이지</title>
+  <style>
+    /* 전체 페이지 스타일 */
+    body {
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    /* 중앙 컨테이너 스타일 */
+    .container {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      text-align: center;
+    }
+    /* 제목 스타일 */
+    h1 {
+      margin-bottom: 30px;
+      font-size: 24px;
+    }
+    /* 폼 스타일 */
+    form {
+      margin-bottom: 20px;
+    }
+    /* 입력 필드 스타일 */
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    /* 버튼 스타일 */
+    input[type="submit"] {
+      background-color: #3498db;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+    }
+    /* 버튼 호버 효과 */
+    input[type="submit"]:hover {
+      background-color: #2980b9;
+    }
+    /* 에러 메시지 스타일 */
+    .error {
+      color: red;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>로그인</h1>
+  <form action="/login" method="post" th:object="${member}">
+    <input type="hidden" name="redirectURL" th:value="${redirectURL}">
+    <div th:if="${#fields.hasGlobalErrors()}">
+      <p class="error" th:each="error : ${#fields.globalErrors()}" th:text="${error}"></p>
+    </div>
+    <div>
+      <label>
+        <input type="text" th:field="*{userId}" placeholder="아이디">
+        <div class="error" th:errors="*{userId}"></div>
+      </label>
+    </div>
+    <div>
+      <label>
+        <input type="password" th:field="*{password}" placeholder="비밀번호">
+        <div class="error" th:errors="*{password}"></div>
+      </label>
+    </div>
+    <div>
+      <input type="submit" th:value="로그인">
+    </div>
+  </form>
+  <form action="/join">
+    <input type="submit" th:value="회원가입">
+  </form>
+</div>
+</body>
+</html>

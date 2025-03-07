@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>회원가입</title>
+  <style>
+    /* 전체 페이지 배경 및 중앙 정렬 */
+    body {
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    /* 중앙 컨테이너 스타일 */
+    .container {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      width: 350px;
+      text-align: center;
+    }
+    /* 제목 스타일 */
+    h1 {
+      margin-bottom: 30px;
+      font-size: 24px;
+    }
+    /* 폼 내부 div 간격 */
+    form div {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    /* 입력 필드 스타일 */
+    input[type="text"],
+    input[type="password"],
+    input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+      margin-top: 5px;
+    }
+    /* 제출 버튼 스타일 */
+    input[type="submit"] {
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+    input[type="submit"]:hover {
+      background-color: #2980b9;
+    }
+    /* 에러 메시지 스타일 */
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+    /* 레이블 스타일 */
+    label {
+      display: block;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>회원가입</h1>
+  <form action="/join" method="post" th:object="${member}" enctype="multipart/form-data">
+    <div th:if="${#fields.hasGlobalErrors()}">
+      <p class="error" th:each="error : ${#fields.globalErrors()}" th:text="${error}"></p>
+    </div>
+    <div>
+      <label>
+        이름
+        <input type="text" th:field="*{username}" placeholder="이름">
+        <div class="error" th:errors="*{username}"></div>
+      </label>
+    </div>
+    <div>
+      <label>
+        아이디
+        <input type="text" th:field="*{userId}" placeholder="아이디">
+        <div class="error" th:errors="*{userId}"></div>
+      </label>
+    </div>
+    <div>
+      <label>
+        비밀번호
+        <input type="password" th:field="*{password}" placeholder="비밀번호">
+        <div class="error" th:errors="*{password}"></div>
+      </label>
+    </div>
+    <div>
+      <label>
+        프로필 사진
+        <input type="file" name="file">
+      </label>
+    </div>
+    <div>
+      <input type="submit" th:value="회원가입">
+    </div>
+  </form>
+</div>
+</body>
+</html>
