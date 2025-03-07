@@ -21,15 +21,9 @@ import java.util.stream.Collectors;
 public class ToDoService {
 
     private final ToDoRepository toDoRepository;
-    private final MemberRepository memberRepository;
 
     public void save(ToDoDto dto, Member member) {
-        /**
-         * 영속성 컨텍스트는 트랜잭션이 시작된 이후에야 생성되기 때문에 findById를 통해 트랜잭션을 시작해야한다.
-         */
         ToDoForm toDoForm = new ToDoForm(dto.getTitle(), dto.getContent(), member);
-        Member findMember = memberRepository.findById(member.getId()).orElseThrow();
-        findMember.getForms().add(toDoForm);
         toDoRepository.save(toDoForm);
     }
 
@@ -55,7 +49,6 @@ public class ToDoService {
     }
 
     public void delete(Long id) {
-        ToDoForm form = toDoRepository.findById(id).orElseThrow();
-        form.getMember().getForms().remove(form);
+        toDoRepository.deleteById(id);
     }
 }
