@@ -20,10 +20,10 @@ public class Member {
     private String userId;
     private String password;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<ToDoForm> forms = new ArrayList<>();
 
-    @OneToOne(mappedBy = "member")
+    @OneToOne(mappedBy = "member", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private UserImage userImage;
 
     public Member(String name, String userId, String password, UserImage userImage) {

@@ -12,6 +12,5 @@ public interface ToDoRepository extends JpaRepository<ToDoForm, Long> {
     List<ToDoForm> findByMember(Member member);
 
     Optional<ToDoForm> findById(Long id);
-    void deleteById(Long id);
 }
 
