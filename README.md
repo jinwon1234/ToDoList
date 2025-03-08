@@ -13,6 +13,33 @@
 ## 2️⃣ 앞으로 구현할 기능
 Querydsl을 활용한 ToDoList 검색기능 추가 예정
 
+## 3️⃣ 어려웠던 혹은 고민했던 기술적인 부분
+
+1. 세션에 저장되어 있는 value는 최신 값이 아닐 수 있다.
+   ```java
+   @GetMapping("/")
+    public String home(@SessionAttribute(name= SessionConst.LOGIN_MEMBER, required = false)
+                       Member member, Model model) {
+
+        if (member == null) {
+            return "member/loginHome";
+        }
+
+        /**
+         * 최신 업데이트가 된 Member 객체를 보내야한다.
+         * 세션(@SessionAttribute)을 통해 받은 Member를 모델로 전달하면 수정내용이 반영되지 않은채로 넘겨질 수 있다.
+         */
+        Member findMember = memberService.findMember(member.getId());
+
+        List<ToDoDto> formList = toDoService.findForms(findMember);
+        model.addAttribute("formList", formList);
+        model.addAttribute("member",
+                new MemberDto(findMember.getId(),findMember.getName(), findMember.getUserImage().getUrl()));
+
+        return "home";
+    }
+   ```
+
 ## 4️⃣ 실제 화면
 
 <img src="https://github.com/user-attachments/assets/c6fb5011-829a-4f09-8a6e-9d84bc59f4c7" width="300" height="400">
