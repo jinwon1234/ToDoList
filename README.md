@@ -1,5 +1,5 @@
 ## 📝 소개
-겨울방학동안 공부했던 기술들(Spring, JPA, Thym Spring Data JPA, Thymeleaf, QueryDsl)을 실제로 간단히 활용해보기 위한 간단한 ToDoList 프로젝트입니다.
+겨울방학동안 공부했던 기술들(Spring, JPA, Thymleaf, Spring Data JPA, Thymeleaf, QueryDsl)을 실제로 간단히 활용해보기 위한 간단한 ToDoList 프로젝트입니다.
 
 현재까지 사용한 기술 : Spring, JPA, Spring Data JPA, Thymeleaf
 앞으로 사용할 기술 : QueryDsl
@@ -13,6 +13,8 @@
 Querydsl을 활용한 ToDoList 검색기능 추가 예정
 
 ## 4️⃣ 실제 화면
+<img src="![image](https://github.com/user-attachments/assets/c6fb5011-829a-4f09-8a6e-9d84bc59f4c7)" width="100" height="100"/>
+
 ![image](https://github.com/user-attachments/assets/c6fb5011-829a-4f09-8a6e-9d84bc59f4c7)
 ![image](https://github.com/user-attachments/assets/9bc60209-6fcb-4336-b554-17a910d7dd0b)
 ![image](https://github.com/user-attachments/assets/037457d0-7178-4e54-848d-1d83e405dad1)
