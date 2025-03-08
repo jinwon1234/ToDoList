@@ -61,12 +61,16 @@ Querydsl을 활용한 ToDoList 검색기능 추가 예정
 
 **3. 객체 바인딩시 오류 발생**
 
-    ```java
-    @PostMapping("{id}/edit")
+   ```java
+   @PostMapping("{id}/edit")
     public String editMember(@PathVariable Long id, @Validated @ModelAttribute("member") MemberEditForm editForm,
                              BindingResult bindingResult, @RequestParam MultipartFile profileImage,
                              Model model) throws IOException {
         if (bindingResult.hasErrors()) {
+            /**
+             * 객체 바인딩에서 오류가 발생했을 때 다른 필드값들이 null로 남아있을 수도 있다.
+             * 이를 방지하기 위해서는 매개변수인 editForm에 기존 값들을 모두 넣어서 전달해야 출력이 정상적으로되고 오류메시지도 표시가된다.
+             */
             Member member = memberService.findMember(id);
             editForm.setId(member.getId());
             editForm.setUserId(member.getUserId());
@@ -80,8 +84,7 @@ Querydsl을 활용한 ToDoList 검색기능 추가 예정
         return "redirect:/";
 
     }
-    ```
-
+   ```
     
     위의 코드에서는 @Validated를 통해 editForm 객체에 바인딩 되는 필드에 대한 검증을 실행한다. 하지만 객체 바인딩에 오류가 발생했을 때 다른 필드값이 null로 남아있을 수도 있다.
     이를 방지하기 위해서는 매개변수인 editForm에 기존 값들을 모두 넣어서 전달해야 출력이 정상적으로되고 오류메시지도 표시가된다.
