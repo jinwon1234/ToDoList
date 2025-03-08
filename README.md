@@ -15,7 +15,7 @@ Querydsl을 활용한 ToDoList 검색기능 추가 예정
 
 ## 3️⃣ 어려웠던 혹은 고민했던 기술적인 부분
 
-1. 세션에 저장되어 있는 value는 최신 값이 아닐 수 있다.
+**1. 세션에 저장되어 있는 value는 최신 값이 아닐 수 있다.**
    ```java
    @GetMapping("/")
     public String home(@SessionAttribute(name= SessionConst.LOGIN_MEMBER, required = false)
@@ -43,7 +43,7 @@ Querydsl을 활용한 ToDoList 검색기능 추가 예정
    @SessionAttribute로 가져온 Member 객체는 초기 로그인 시점의 데이터이며, 이후 Member 정보가 수정되더라도 기존 세션 객체는 갱신되지 않는다.
    그렇기 때문에 위 코드에서 findMember를 통해서 다시 Member를 조회해 로그인 된 사용자의 상태를 최신 상태로 보장되게 해준다.
 
-2. 엔티티 간의 관계가 양방향 연관관계일때, 연관관계 편의 메소드는 항상 사용해야하는가?
+**2. 엔티티 간의 관계가 양방향 연관관계일때, 연관관계 편의 메소드는 항상 사용해야하는가?**
    
    연관관계 편의 메소드를 사용하는 이유는 비즈니스 로직의 일관성을 지켜주기 위함이다.
 
