@@ -43,6 +43,24 @@ Querydsl을 활용한 ToDoList 검색기능 추가 예정
    @SessionAttribute로 가져온 Member 객체는 초기 로그인 시점의 데이터이며, 이후 Member 정보가 수정되더라도 기존 세션 객체는 갱신되지 않는다.
    그렇기 때문에 위 코드에서 findMember를 통해서 다시 Member를 조회해 로그인 된 사용자의 상태를 최신 상태로 보장되게 해준다.
 
+2. 엔티티 간의 관계가 양방향 연관관계일때, 연관관계 편의 메소드는 항상 사용해야하는가?
+   
+   연관관계 편의 메소드를 사용하는 이유는 비즈니스 로직의 일관성을 지켜주기 위함이다.
+
+   이번 프로젝트에서는 Member와 ToDoForm이 양방향 연관관계를 맺고있고 ToDoForm의 연관관계의 주인이다.
+
+   ```java
+   public void delete(Long id) {
+        toDoRepository.deleteById(id);
+    }
+   ```
+   위 코드처럼 특정 ToDoForm을 삭제할 때 Member.getForms.remove(form) 처럼 Member의 리스트에서도 삭제해줘야하나? -> 정답은 삭제해주지 않아도 된다.
+
+   위의 로직은 연관관계 편의 메소드가 필요한 로직이 아니다. 
+   영속성 컨텍스트의 생명주기는 트랜잭션이 시작하고 끝날때까지이다.
+   만약 위 코드의 비즈니스 로직이 Member.getForms().size()같은 코드를 사용한다면 당연히 연관관계 편의 메소드를 사용해줘야하지만 오직 toDoForm만 삭제하는 비즈니스 로직이기 때문에 필요없다.
+
+   
 ## 4️⃣ 실제 화면
 
 <img src="https://github.com/user-attachments/assets/c6fb5011-829a-4f09-8a6e-9d84bc59f4c7" width="300" height="400">
