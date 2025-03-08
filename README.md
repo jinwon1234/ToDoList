@@ -39,6 +39,9 @@ Querydsl을 활용한 ToDoList 검색기능 추가 예정
         return "home";
     }
    ```
+   @SessionAttribute는 세션에서 가져온 객체를 바로 사용하기 때문에, 해당 객체가 최신 상태인지 보장되지 않는다.
+   @SessionAttribute로 가져온 Member 객체는 초기 로그인 시점의 데이터이며, 이후 Member 정보가 수정되더라도 기존 세션 객체는 갱신되지 않는다.
+   그렇기 때문에 위 코드에서 findMember를 통해서 다시 Member를 조회해 로그인 된 사용자의 상태를 최신 상태로 보장되게 해준다.
 
 ## 4️⃣ 실제 화면
 
