@@ -23,7 +23,7 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<ToDoForm> forms = new ArrayList<>();
 
-    @OneToOne(mappedBy = "member", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToOne(mappedBy = "member", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private UserImage userImage;
 
     public Member(String name, String userId, String password, UserImage userImage) {
