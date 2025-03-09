@@ -159,6 +159,16 @@
         width: 100%;
       }
     }
+
+    .btn-complete {
+      background-color: #c3cfe2;
+      color: white;
+    }
+
+    .btn-in-doing {
+      background-color: #007BFF;
+      color: white;
+    }
   </style>
 </head>
 <body>
@@ -208,6 +218,13 @@
       <form th:action="@{/todo/{id}/deleteform(id=${todo.id})}" method="post">
         <button type="submit" class="delete-button">삭제</button>
       </form>
+      <form th:action="@{/todo/{id}/status(id=${todo.id})}" method="post">
+        <button type="submit"
+                th:text="${todo.status.display}"
+                th:class="${todo.status.name() == 'COMPLETED' ? 'btn-complete' : 'btn-in-doing'}">
+        </button>
+      </form>
+
     </div>
   </div>
 </div>

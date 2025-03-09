@@ -54,7 +54,7 @@
 <body>
 
 <div class="container">
-    <h2>ToDo 작성</h2>
+    <h2>ToDo 수정</h2>
     <form th:action="@{/todo/{id}/updateform(id=${todoForm.id})}" th:object="${todoForm}" method="post">
 
         <p th:errors="*{title}" style="color: red;"></p>

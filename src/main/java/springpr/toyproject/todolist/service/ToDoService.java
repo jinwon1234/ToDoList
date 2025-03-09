@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import springpr.toyproject.domain.Member;
+import springpr.toyproject.domain.Status;
 import springpr.toyproject.domain.ToDoForm;
 import springpr.toyproject.member.repository.MemberRepository;
 import springpr.toyproject.todolist.dto.ToDoDto;
@@ -23,19 +24,19 @@ public class ToDoService {
     private final ToDoRepository toDoRepository;
 
     public void save(ToDoDto dto, Member member) {
-        ToDoForm toDoForm = new ToDoForm(dto.getTitle(), dto.getContent(), member);
+        ToDoForm toDoForm = new ToDoForm(dto.getTitle(), dto.getContent(), member, Status.DOING);
         toDoRepository.save(toDoForm);
     }
 
     public List<ToDoDto> findForms(Member member) {
         return toDoRepository.findByMember(member).stream()
-                .map(form -> new ToDoDto(form.getId(), form.getTitle(), form.getContent()))
+                .map(form -> new ToDoDto(form.getId(), form.getTitle(), form.getContent(),form.getStatus()))
                 .collect(Collectors.toList());
     }
 
     public ToDoDto findForm(Long id) {
         ToDoForm toDoForm = toDoRepository.findById(id).orElseThrow();
-        return new ToDoDto(toDoForm.getId(), toDoForm.getTitle(), toDoForm.getContent());
+        return new ToDoDto(toDoForm.getId(), toDoForm.getTitle(), toDoForm.getContent(), toDoForm.getStatus());
     }
 
     public void updateForm(ToDoDto toDoDto) {
@@ -50,5 +51,13 @@ public class ToDoService {
 
     public void delete(Long id) {
         toDoRepository.deleteById(id);
+    }
+
+    public void changeStatus(Long id) {
+        ToDoForm form = toDoRepository.findById(id).orElseThrow();
+        if (form.getStatus().equals(Status.DOING)) {
+            form.changeStatus(Status.COMPLETED);
+        }
+        else form.changeStatus(Status.DOING);
     }
 }

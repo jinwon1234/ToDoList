@@ -69,5 +69,11 @@ public class ToDoController {
         return "redirect:/";
     }
 
+    @PostMapping("/{id}/status")
+    public String changeStatus(@PathVariable Long id, Model model) {
+        toDoService.changeStatus(id);
+        return "redirect:/";
+    }
+
 
 }

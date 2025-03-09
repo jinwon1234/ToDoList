@@ -14,13 +14,21 @@ public class ToDoForm {
     private String title;
     private String content;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
     protected ToDoForm() {
     }
 
-    public ToDoForm(String title, String content, Member member) {
+    public ToDoForm(String title, String content, Member member, Status status) {
         this.title = title;
         this.content = content;
         this.member = member;
+        this.status = status;
     }
 
     public void changeTitle(String newTitle) {
@@ -31,7 +39,7 @@ public class ToDoForm {
         this.content = newContent;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    public void changeStatus(Status newStatus) {
+        this.status = newStatus;
+    }
 }
