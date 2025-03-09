@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Entity
 @Getter
-public class ToDoForm {
+public class ToDoForm extends BaseTimeEntity{
 
     @Id @GeneratedValue
     @Column(name = "todo_id")
