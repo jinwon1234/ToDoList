@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springpr.toyproject.domain.Member;
 import springpr.toyproject.member.dto.ChangePasswordForm;
+import springpr.toyproject.member.dto.MemberDto;
 import springpr.toyproject.member.dto.MemberEditForm;
 import springpr.toyproject.member.service.MemberService;
 
@@ -24,11 +25,10 @@ public class EditMemberController {
 
     @GetMapping("{id}/edit")
     public String editMember(@PathVariable Long id, Model model) {
-        Member member = memberService.findMember(id);
-        MemberEditForm editForm = new MemberEditForm(member.getId(), member.getUserId(), member.getName(), member.getUserImage().getUrl());
+        MemberDto member = memberService.findMember(id);
+        MemberEditForm editForm = new MemberEditForm(member.getId(), member.getUserId(), member.getName(), member.getUserImage());
         model.addAttribute("member", editForm);
 
-        log.info("url : {}", member.getUserImage().getUrl());
 
         return "member/edit";
     }
@@ -42,10 +42,10 @@ public class EditMemberController {
              * 객체 바인딩에서 오류가 발생했을 때 다른 필드값들이 null로 남아있을 수도 있다.
              * 이를 방지하기 위해서는 매개변수인 editForm에 기존 값들을 모두 넣어서 전달해야 출력이 정상적으로되고 오류메시지도 표시가된다.
              */
-            Member member = memberService.findMember(id);
+            MemberDto member = memberService.findMember(id);
             editForm.setId(member.getId());
             editForm.setUserId(member.getUserId());
-            editForm.setImageURL(member.getUserImage().getUrl());
+            editForm.setImageURL(member.getUserImage());
             model.addAttribute("member", editForm);
             return "member/edit";
         }

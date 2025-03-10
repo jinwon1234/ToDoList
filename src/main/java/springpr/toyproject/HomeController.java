@@ -33,12 +33,11 @@ public class HomeController {
          * 최신 업데이트가 된 Member 객체를 보내야한다.
          * 세션(@SessionAttribute)을 통해 받은 Member를 모델로 전달하면 수정내용이 반영되지 않은채로 넘겨질 수 있다.
          */
-        Member findMember = memberService.findMember(member.getId());
+        MemberDto findMember = memberService.findMember(member.getId());
 
         List<ToDoDto> formList = toDoService.findForms(findMember);
         model.addAttribute("formList", formList);
-        model.addAttribute("member",
-                new MemberDto(findMember.getId(),findMember.getName(), findMember.getUserImage().getUrl()));
+        model.addAttribute("member", findMember);
 
         return "home";
     }

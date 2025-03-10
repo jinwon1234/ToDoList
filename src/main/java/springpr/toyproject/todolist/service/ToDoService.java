@@ -8,8 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 import springpr.toyproject.domain.Member;
 import springpr.toyproject.domain.Status;
 import springpr.toyproject.domain.ToDoForm;
+import springpr.toyproject.member.dto.MemberDto;
 import springpr.toyproject.member.repository.MemberRepository;
+import springpr.toyproject.todolist.dto.SearchToDoCond;
 import springpr.toyproject.todolist.dto.ToDoDto;
+import springpr.toyproject.todolist.repository.QtoDoRepository;
 import springpr.toyproject.todolist.repository.ToDoRepository;
 
 import java.util.List;
@@ -22,14 +25,15 @@ import java.util.stream.Collectors;
 public class ToDoService {
 
     private final ToDoRepository toDoRepository;
+    private final QtoDoRepository qtoDoRepository;
 
     public void save(ToDoDto dto, Member member) {
         ToDoForm toDoForm = new ToDoForm(dto.getTitle(), dto.getContent(), member, Status.DOING);
         toDoRepository.save(toDoForm);
     }
 
-    public List<ToDoDto> findForms(Member member) {
-        return toDoRepository.findByMember(member).stream()
+    public List<ToDoDto> findForms(MemberDto member) {
+        return toDoRepository.findByMember(member.getId()).stream()
                 .map(form -> new ToDoDto(form.getId(), form.getTitle(), form.getContent(),form.getStatus()))
                 .collect(Collectors.toList());
     }
@@ -59,5 +63,9 @@ public class ToDoService {
             form.changeStatus(Status.COMPLETED);
         }
         else form.changeStatus(Status.DOING);
+    }
+
+    public List<ToDoDto> searchToDoForm(Long id, SearchToDoCond searchToDoCond) {
+        return qtoDoRepository.searchForm(id, searchToDoCond);
     }
 }

@@ -8,10 +8,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springpr.toyproject.domain.Member;
+import springpr.toyproject.member.dto.MemberDto;
 import springpr.toyproject.member.service.MemberService;
 import springpr.toyproject.member.session.SessionConst;
+import springpr.toyproject.todolist.dto.SearchToDoCond;
 import springpr.toyproject.todolist.dto.ToDoDto;
 import springpr.toyproject.todolist.service.ToDoService;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/todo")
@@ -20,6 +24,7 @@ import springpr.toyproject.todolist.service.ToDoService;
 public class ToDoController {
 
     private final ToDoService toDoService;
+    private final MemberService memberService;
 
     @GetMapping("/new")
     public String getForm(@SessionAttribute(value = SessionConst.LOGIN_MEMBER, required = false) Member member, Model model) {
@@ -75,5 +80,15 @@ public class ToDoController {
         return "redirect:/";
     }
 
+    @GetMapping("/{id}/search")
+    public String search(@PathVariable Long id, @ModelAttribute SearchToDoCond searchToDoCond,
+                         Model model) {
+        log.info("check {} {} {}", searchToDoCond.getTitleCond(), searchToDoCond.getContentCond(), searchToDoCond.getContentCond());
+        List<ToDoDto> form = toDoService.searchToDoForm(id, searchToDoCond);
+        MemberDto member = memberService.findMember(id);
+        model.addAttribute("member", member);
+        model.addAttribute("formList", form);
+        return "home";
+    }
 
 }
