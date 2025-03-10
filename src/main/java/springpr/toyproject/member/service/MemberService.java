@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import springpr.toyproject.domain.Member;
 import springpr.toyproject.domain.UserImage;
 import springpr.toyproject.member.dto.ChangePasswordForm;
+import springpr.toyproject.member.dto.MemberDto;
 import springpr.toyproject.member.dto.MemberEditForm;
 import springpr.toyproject.member.dto.JoinForm;
 import springpr.toyproject.member.repository.MemberRepository;
@@ -30,8 +31,9 @@ public class MemberService {
     private final UserImageRepository userImageRepository;
     private final MemberRepository memberRepository;
 
-    public Member findMember(Long Id) {
-        return memberRepository.findById(Id).orElseThrow();
+    public MemberDto findMember(Long Id) {
+        Member findMember = memberRepository.findById(Id).orElseThrow();
+        return new MemberDto(findMember.getId(), findMember.getUserId(), findMember.getName(), findMember.getUserImage().getUrl());
     }
 
     public Member login(String userId, String password) {

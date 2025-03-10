@@ -188,7 +188,7 @@
 
 <!-- 프로필 카드 -->
 <div class="profile-card">
-  <img class="profile-img" th:src="|images/${member.userImage}|" alt="Profile">
+  <img class="profile-img" th:src="@{/images/{fileName}(fileName=${member.userImage})}" alt="Profile">
   <div>
     <p th:text="|${member.name}님 안녕하세요|"></p>
     <a th:href="@{/{id}/edit(id=${member.id})}">
@@ -196,6 +196,19 @@
     </a>
   </div>
 </div>
+
+
+<!-- 검색 폼 추가 -->
+<form th:action="@{/todo/{id}/search(id=${member.id})}" class="search-form">
+  <input type="text" name="titleCond" placeholder="제목">
+  <input type="text" name="contentCond" placeholder="내용">
+  <select name="statusCond">
+    <option value="">전체</option>
+    <option value="DOING">진행 중</option>
+    <option value="COMPLETED">완료</option>
+  </select>
+  <button type="submit">🔍 검색</button>
+</form>
 
 
 <!-- 글쓰기 버튼 -->
