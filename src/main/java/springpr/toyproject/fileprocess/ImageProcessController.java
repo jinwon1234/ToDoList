@@ -16,6 +16,7 @@ public class ImageProcessController {
 
     @Value("${userImage.dir}")
     private String userImageDir;
+
     @GetMapping("/images/{fileDir}")
     public Resource getImage(@PathVariable String fileDir) throws MalformedURLException {
         return new UrlResource("file:" + userImageDir + fileDir);
