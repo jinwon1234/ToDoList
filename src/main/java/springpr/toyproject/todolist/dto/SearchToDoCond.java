@@ -1,6 +1,7 @@
 package springpr.toyproject.todolist.dto;
 
 import lombok.Data;
+
 @Data
 public class SearchToDoCond {
 
