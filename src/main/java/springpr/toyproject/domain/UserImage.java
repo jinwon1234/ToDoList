@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @Entity
-public class UserImage {
+public class UserImage extends BaseTimeEntity{
 
     @Id @GeneratedValue
     @Column(name = "image_id")
